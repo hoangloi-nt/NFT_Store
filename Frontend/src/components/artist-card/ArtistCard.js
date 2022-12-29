@@ -4,14 +4,13 @@ import { useTranslation } from "react-i18next";
 import { hashShortener } from "sdk/iconSDK";
 
 const artistCard = ({ to, name, address, avatar, products, isYou }) => {
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { t } = useTranslation();
   return (
     <div className="flip-card">
       <div className="flip-card-inner">
         <div className="front">
-          <div className="card w-[282px] h-[323px] bg-[#30384D] rounded-lg hover:-translate-y-1 transition-all flex flex-col justify-center items-center gap-y-10">
+          <div className="card w-[282px] h-[323px] bg-[#869BDF] bg-opacity-[15%] border border-[#535488] border-opacity-40 rounded-lg hover:-translate-y-1 transition-all flex flex-col justify-center items-center gap-y-10">
             <img
               src={
                 avatar ||
@@ -21,10 +20,10 @@ const artistCard = ({ to, name, address, avatar, products, isYou }) => {
               className="object-cover w-[200px] h-[200px] mx-auto rounded-full"
             />
 
-            <div className="leading-none flex justify-center items-center gap-x-3">
+            <div className="flex items-center justify-center leading-none gap-x-3">
               <span className="text-xl font-semibold">{name}</span>
               {isYou && (
-                <div className="font-semibold text-white bg-green-500 px-3 py-2 rounded-xl">
+                <div className="px-3 py-2 font-semibold text-white bg-green-500 rounded-xl">
                   {t("artistPage.you")}
                 </div>
               )}
@@ -32,7 +31,7 @@ const artistCard = ({ to, name, address, avatar, products, isYou }) => {
           </div>
         </div>
         <div className="back">
-          <div className="card w-[282px] h-[323px] bg-[#30384D] rounded-lg hover:-translate-y-1 transition-all flex flex-col justify-center items-center gap-y-5">
+          <div className="card w-[282px] h-[323px] bg-[#869BDF] bg-opacity-[15%] border border-[#535488] border-opacity-40 rounded-lg hover:-translate-y-1 transition-all flex flex-col justify-center items-center gap-y-5">
             <img
               src={
                 avatar ||
@@ -41,7 +40,7 @@ const artistCard = ({ to, name, address, avatar, products, isYou }) => {
               alt=""
               className="object-cover w-[80px] h-[80px] mx-auto rounded-full"
             />
-            <div className=" flex justify-center items-center gap-x-3">
+            <div className="flex items-center justify-center gap-x-3">
               <span>
                 {t("name")}: <strong>{name}</strong> <br></br>
                 {t("address")}: <strong>{hashShortener(address)}</strong>{" "}
@@ -49,12 +48,12 @@ const artistCard = ({ to, name, address, avatar, products, isYou }) => {
                 {t("products")}: <strong>{products}</strong> <br></br>
               </span>
             </div>
-            <div className="flex justify-center items-center flex-col gap-y-4">
+            <div className="flex flex-col items-center justify-center gap-y-4">
               {isYou && (
                 <Button
                   type="button"
                   kind="primary"
-                  className="!text-sm"
+                  className="!text-sm !bg-[#171a2b]"
                   height={"36px"}
                   to={"/profile"}
                 >
@@ -66,7 +65,7 @@ const artistCard = ({ to, name, address, avatar, products, isYou }) => {
                 <Button
                   type="button"
                   kind="primary"
-                  className="!text-sm"
+                  className="!text-sm !bg-[#171a2b]"
                   height={"36px"}
                   to={to}
                 >
@@ -79,7 +78,6 @@ const artistCard = ({ to, name, address, avatar, products, isYou }) => {
       </div>
     </div>
   );
-
 };
 
 export default artistCard;

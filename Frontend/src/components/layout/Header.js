@@ -90,7 +90,7 @@ const Header = () => {
   const menuLinks = [
     {
       url: "/",
-      title: t("explore"),
+      title: t("home"),
     },
     {
       url: "/marketplace",
@@ -107,11 +107,11 @@ const Header = () => {
   ];
 
   return (
-    <header className="!py-5 container flex items-center gap-x-10">
+    <header className="!py-5 container flex items-center justify-between gap-x-12">
       <NavLink to="/">
         <img srcSet="/Logo.png 2x" alt="devestore" className="logo" />
       </NavLink>
-      <ul className="flex items-center justify-center transition-all menu gap-x-10">
+      <ul className="flex items-center justify-center transition-all menu gap-x-5">
         {menuLinks.map((item) => (
           <li className="" key={item.title}>
             <NavLink
@@ -151,7 +151,7 @@ const Header = () => {
                 {parseFloat(price).toFixed(4)} ICX
               </div>
               {show && (
-                <div className="absolute flex justify-center items-start flex-col bg-white w-[200px] rounded-lg overflow-hidden translate-y-2 z-10">
+                <div className="absolute flex justify-center items-start flex-col bg-white w-[200px] rounded-sm overflow-hidden translate-y-2 z-10">
                   <span
                     className="w-full p-3 hover:bg-slate-500 hover:text-white "
                     onClick={handleChangeLanguage}
@@ -169,7 +169,7 @@ const Header = () => {
                   </span>
                   <Button
                     kind="primary"
-                    className="w-full !rounded-tl-none !rounded-tr-none text-white"
+                    className="w-full !rounded-tl-none !rounded-tr-none text-white !bg-red-500"
                     onClick={disConnectHandle}
                   >
                     {t("disconnect")}
@@ -181,7 +181,7 @@ const Header = () => {
         ) : (
           <Button
             kind="primary"
-            className="w-[200px]"
+            className="w-[150px]"
             onClick={() => connectWallet(setAddress)}
           >
             {t("connect")}

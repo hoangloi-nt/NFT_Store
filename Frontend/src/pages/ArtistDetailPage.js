@@ -57,7 +57,7 @@ const ArtistDetailPage = () => {
         <div className="flex-1">
           <Pagination
             items={products}
-            className="!grid-cols-3 !gap-4"
+            className="!grid-cols-3 !gap-10"
             amount={9}
           ></Pagination>
         </div>

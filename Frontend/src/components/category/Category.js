@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from 'components/button';
-import { Pagination } from 'components/pagination';
-import * as request from 'utils/request';
+import React, { useState, useEffect } from "react";
+import { Button } from "components/button";
+import * as request from "utils/request";
 import ReactPaginate from "react-paginate";
 import { Card } from "../card";
 
- 
 const Category = () => {
   const categories = [
     "Music",
@@ -15,7 +13,7 @@ const Category = () => {
     "Virtual Reality",
     "Video",
   ];
-  
+
   const [selectedCategory, setSelectedCategogy] = useState(categories[0]);
   const [productList, setProductList] = useState([]);
 
@@ -41,19 +39,19 @@ const Category = () => {
     fetchApi();
   }, [itemOffset, selectedCategory]);
 
-    useEffect(() => {
-      const countApi = async () => {
-        try {
-          const res = await request.get(`products/count`, {
-            params: {
-              _Category: selectedCategory,
-            },
-          });
-          setTotalProducts(res);
-        } catch (error) {}
-      };
-      countApi();
-    }, [selectedCategory]);
+  useEffect(() => {
+    const countApi = async () => {
+      try {
+        const res = await request.get(`products/count`, {
+          params: {
+            _Category: selectedCategory,
+          },
+        });
+        setTotalProducts(res);
+      } catch (error) {}
+    };
+    countApi();
+  }, [selectedCategory]);
 
   useEffect(() => {
     setPageCount(Math.ceil(totalProducts / itemsPerPage));
@@ -62,11 +60,11 @@ const Category = () => {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % totalProducts;
     setItemOffset(newOffset);
-  }
+  };
 
   return (
     <>
-      <div className="categories flex items-center justify-center text-sm gap-x-10">
+      <div className="flex items-center justify-center text-sm categories gap-x-10">
         {categories.map((category) => (
           <Button
             kind="secondary"
@@ -84,7 +82,7 @@ const Category = () => {
       </div>
 
       <div className="my-5">
-        <div className={`grid grid-cols-4 mx-auto gap-x-10 gap-y-12`}>
+        <div className={`grid grid-cols-4 mx-auto gap-10`}>
           {productList.map((product) => {
             return (
               <Card
@@ -118,6 +116,6 @@ const Category = () => {
       </div>
     </>
   );
-}
+};
 
 export default Category;

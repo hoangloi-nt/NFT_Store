@@ -1,10 +1,8 @@
 import { Category } from "components/category";
 import React, { useEffect } from "react";
 import { Button } from "../components/button";
-import deveraCharacter from "../img/Devera-brand-character-1.png";
-import logoIcon from "../img/logo-dark-1.png";
-import logoDevera from "../img/Devera-logo-red-1.png";
-import logoLecle from "../img/Lecle-logo-yellow-1.png";
+import Skull from "../img/Skull.png";
+import logos from "../img/LineLogo.png";
 import axios from "axios";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,13 +22,13 @@ const HomePage = () => {
       setProducts(data[1].data);
     }
     getAllData();
-    document.title = "Devestore Homepage";
+    document.title = "NFT Store Homepage";
   }, []);
   return (
     <div className="container">
       <div className="flex items-center justify-between mt-10">
         <div>
-          <div className="text-5xl font-bold">
+          <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#bc61f3] to-[#5c43f6]">
             {t("homepage.title1")}
             <br></br> {t("homepage.title2")}
           </div>
@@ -38,12 +36,12 @@ const HomePage = () => {
           <Button
             kind="primary"
             height={"56px"}
-            width={"300px"}
+            width={"200px"}
             to={"/marketplace"}
           >
             {t("homepage.mainBtn")}
           </Button>
-          <div className="flex items-center gap-x-48 mt-10">
+          <div className="flex items-center mt-10 gap-x-48">
             <div>
               <div className="text-5xl font-bold">{products}</div>
               <div>NFTs</div>
@@ -54,15 +52,17 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <img src={deveraCharacter} alt="Devera Brand Character" />
+        <img srcSet={`${Skull} 2x`} alt="Skull NFT" />
       </div>
-      <div className="flex items-center justify-end my-10 gap-x-10">
-        <img src={logoIcon} alt="Icon logo" />
-        <img src={logoDevera} alt="Devera logo" />
-        <img src={logoLecle} alt="Lecle logo" />
+      <div className="relative flex items-center justify-center mt-32 mb-10">
+        <img src={logos} alt="Icon logos" />
+        <div className="w-[400px] rounded-full h-[400px] bg-white absolute left-[-20%] z-[-1] opacity-20 blur-[80px]"></div>
       </div>
+
       <div className="flex flex-col justify-center border-t border-t-zinc-400 border-opacity-20">
-        <div className="my-10 text-xl text-left">{t("homepage.hot")}</div>
+        <div className="my-10 text-3xl font-bold text-left">
+          {t("homepage.hot")}
+        </div>
         <Category />
       </div>
     </div>

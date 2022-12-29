@@ -1,5 +1,5 @@
 {
-  "explore": "Explore",
+  "home": "Home",
   "changeName": "Change language",
   "darkMode": "Dark mode",
   "createNFT": "Create NFT",
@@ -41,7 +41,7 @@
     "careers": "Careers",
     "support": "Support",
     "footer-text1": "Amazing NFTs marketplace, Authentic and unique digital creation.",
-    "footer-text2": "Copyright 2022 Devera, All right reserved.",
+    "footer-text2": "Copyright 2022 NFT Store, All right reserved.",
     "footer-text3": "Privacy Policy",
     "footer-text4": " Terms & Conditions"
   },
