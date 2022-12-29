@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "creators",
+  "info": {
+    "name": "Creators",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "create": {
+      "via": "createby",
+      "collection": "products"
+    },
+    "buy": {
+      "via": "boughtby",
+      "collection": "products"
+    },
+    "avatar": {
+      "type": "string"
+    },
+    "Wallet": {
+      "type": "decimal"
+    }
+  }
+}
