@@ -6,6 +6,8 @@ import logos from "../img/LineLogo.png";
 import axios from "axios";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Glowing } from "components/glowing";
+import { EthereumLogo } from "components/ethereum-logo";
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -52,11 +54,18 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <img srcSet={`${Skull} 2x`} alt="Skull NFT" />
+        <div className="flex items-center justify-center gap-0">
+          <img
+            srcSet={`${Skull} 2x`}
+            alt="Skull NFT"
+            className="relative left-32"
+          />
+          <EthereumLogo></EthereumLogo>
+        </div>
       </div>
       <div className="relative flex items-center justify-center mt-32 mb-10">
         <img src={logos} alt="Icon logos" />
-        <div className="w-[400px] rounded-full h-[400px] bg-white absolute left-[-20%] z-[-1] opacity-20 blur-[80px]"></div>
+        <Glowing className="left-[-30%]"></Glowing>
       </div>
 
       <div className="flex flex-col justify-center border-t border-t-zinc-400 border-opacity-20">

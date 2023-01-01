@@ -1,0 +1,100 @@
+$size: 10rem;
+$rsize: $size * 0.75;
+$angle: 68deg;
+$r: 50deg;
+
+@keyframes rotate {
+  from {
+    transform: rotateX($r) rotateZ(0deg) translateZ(-0.5rem);
+  }
+  50% {
+    transform: rotateX($r) rotateZ(180deg) translateZ(0.5rem);
+  }
+  to {
+    transform: rotateX($r) rotateZ(360deg) translateZ(-0.5rem);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.container-logo {
+  filter: drop-shadow(0px 4px 32px hsla(203, 71%, 60%, 0.7));
+  animation: float 6s ease-in-out infinite;
+}
+
+.wrapper {
+  margin-bottom: 0;
+  transform-style: preserve-3d;
+  width: $rsize;
+  height: $rsize;
+  transform-origin: $rsize / 2 $rsize / 2;
+  transform: rotateX($r) rotateZ(45deg);
+  animation: rotate 4s linear infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.pyramid {
+  position: absolute;
+  perspective: 500px;
+  transform-style: preserve-3d;
+  &.inverse {
+    transform: translateZ(-$size / 7) rotateY(180deg);
+  }
+}
+
+.square {
+  width: $rsize;
+  height: $rsize;
+  background: white;
+  transform-style: preserve-3d;
+}
+
+.triangle {
+  position: absolute;
+  width: $size;
+  height: $size;
+  &:nth-child(1) {
+    width: $rsize;
+    top: -33%;
+    background: linear-gradient(90deg, #00dbde 0%, #5c43f6 100%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    transform-origin: 50% 100%;
+    transform: rotateX(-$angle);
+  }
+  &:nth-child(2) {
+    width: $rsize;
+    background: linear-gradient(90deg, #00dbde 0%, #5c43f6 100%);
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    transform-origin: 50% 0%;
+    transform: rotateX($angle);
+  }
+  &:nth-child(3) {
+    height: $rsize;
+    left: -33%;
+    background: linear-gradient(90deg, #bc61f3 0%, #fc00ff 100%);
+    transform-origin: 100% 50%;
+    clip-path: polygon(100% 100%, 0 50%, 100% 0);
+    transform: rotateY($angle);
+  }
+  &:nth-child(4) {
+    height: $rsize;
+    background: linear-gradient(90deg, #bc61f3 0%, #fc00ff 100%);
+    transform-origin: 0% 50%;
+    clip-path: polygon(0 100%, 100% 50%, 0 0);
+    transform: rotateY(-$angle);
+  }
+}
