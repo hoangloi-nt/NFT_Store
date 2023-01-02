@@ -8,9 +8,9 @@ const InputStyles = styled.input`
   width: 100%;
   padding: 15px;
   border: 1px solid #353242;
-  border-radius: 8px;
+  border-radius: 4px;
   transition: all 0.2s linear;
-  background-color: rgba(48, 35, 52, 0.5);
+  background-color: #04040c;
 
   ::-webkit-input-placeholder {
     color: #84878b;
