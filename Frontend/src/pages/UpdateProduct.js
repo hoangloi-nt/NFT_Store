@@ -108,36 +108,11 @@ const UpdateProduct = () => {
     setSelectedImage(null);
   };
 
-  async function deleteNFT(id) {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:1337/products/${id}`)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        Swal.fire("Deleted!", "Your product has been deleted.", "success");
-        navigate("/");
-      }
-    });
-  }
-
   return (
     <div className="container">
-      <div className="text-3xl mt-10 mb-10 mx-auto text-center">Update NFT</div>
+      <div className="mx-auto mt-10 mb-10 text-3xl text-center">Update NFT</div>
       <form onSubmit={handleSubmit(updateNFT)}>
-        <div className="flex gap-x-10 justify-center">
+        <div className="flex justify-center gap-x-10">
           <div className="flex flex-col gap-y-5 min-w-[500px]">
             <div>
               <label htmlFor="name">Name</label>
@@ -184,22 +159,17 @@ const UpdateProduct = () => {
             ></ImageUpload>
           </div>
         </div>
-        <div className="flex justify-center items-center gap-x-5">
-          <Button
-            type="button"
-            kind="primary"
-            className="mt-10"
-            width="200px"
-            onClick={() => deleteNFT(id)}
-          >
-            Delete
-          </Button>
-          <Button type="submit" kind="primary" className="mt-10" width="200px">
-            Update
-          </Button>
-        </div>
+
+        <Button
+          type="submit"
+          kind="primary"
+          className="mx-auto mt-10"
+          width="200px"
+        >
+          Update
+        </Button>
       </form>
-      <div className="border-t border-t-zinc-400 border-opacity-20 py-10 mt-20">
+      <div className="py-10 mt-20 border-t border-t-zinc-400 border-opacity-20">
         <TopCreators></TopCreators>
       </div>
     </div>
