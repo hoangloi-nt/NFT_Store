@@ -18,7 +18,7 @@ const ImageUpload = (props) => {
   return (
     <>
       <label
-        className={`cursor-pointer flex items-center justify-center border border-[#353242] w-full min-h-[288px] rounded-sm ${className} relative overflow-hidden group min-w-[288px] bg-[#262338]`}
+        className={`cursor-pointer flex items-center justify-center border border-[#353242] w-full min-h-[288px] rounded-sm ${className} relative overflow-hidden group min-w-[288px] bg-[#04040c]`}
       >
         <input type="file" name={name} className="hidden-input" {...rest} />
         {!avatar && !image && !oldImage && (
@@ -72,12 +72,12 @@ const ImageUpload = (props) => {
         {image && (
           <Fragment>
             <button
-              className=" w-12 h-12 bg-white rounded-full flex items-center justify-center cursor-pointer absolute z-10 shadow-lg opacity-0 invisible transition-all group-hover:opacity-100 group-hover:visible"
+              className="absolute z-10 flex items-center justify-center invisible w-12 h-12 transition-all bg-white rounded-full shadow-lg opacity-0 cursor-pointer  group-hover:opacity-100 group-hover:visible"
               onClick={handleDeleteImage}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="w-6 h-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="black"

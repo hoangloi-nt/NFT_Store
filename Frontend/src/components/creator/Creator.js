@@ -3,11 +3,10 @@ import { NavLink } from "react-router-dom";
 import { hashShortener } from "sdk/iconSDK";
 import imgTotalProduct from "../../assets/img/image-removebg-preview.png";
 
-
 const Creator = ({ to, address, avatar, totalProducts }) => {
   return (
     <NavLink to={to}>
-      <div className="w-[294px] h-[63px] bg-bg_card rounded-[5px] flex items-center px-[9px] justify-between hover:-translate-y-1 transition-all">
+      <div className="w-[294px] h-[63px] bg-[#869BDF] bg-opacity-[15%] border border-[#535488] border-opacity-40  rounded-[4px] flex items-center px-[9px] justify-between hover:-translate-y-1 transition-all">
         <div className="flex flex-row items-center gap-[7px]">
           <img
             src={
@@ -21,7 +20,7 @@ const Creator = ({ to, address, avatar, totalProducts }) => {
             <span className="text-[12px] font-medium">
               {hashShortener(address)}
             </span>
-            <div className="flex gap-2 justify-start items-center">
+            <div className="flex items-center justify-start gap-2">
               <img className="w-3" src={imgTotalProduct} alt="" />
               <span className="text-[10px] font-medium">
                 {totalProducts} NFTs
