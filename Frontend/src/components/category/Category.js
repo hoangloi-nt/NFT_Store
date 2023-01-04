@@ -84,17 +84,20 @@ const Category = () => {
       <div className="my-5">
         <div className={`grid grid-cols-4 mx-auto gap-10`}>
           {productList.map((product) => {
-            return (
-              <Card
-                key={product.id}
-                to={`/buy/${product.id}`}
-                title={product?.Name}
-                price={product?.Price}
-                image={product?.image}
-                address={product?.createby?.address}
-                avatar={product?.createby?.avatar}
-              ></Card>
-            );
+            if (product.public) {
+              return (
+                <Card
+                  key={product.id}
+                  to={`/buy/${product.id}`}
+                  title={product?.Name}
+                  price={product?.Price}
+                  image={product?.image}
+                  address={product?.createby?.address}
+                  avatar={product?.createby?.avatar}
+                ></Card>
+              );
+            }
+            return null;
           })}
         </div>
 

@@ -8,16 +8,25 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+import Toggle from "components/toggle/Toggle";
+import { Dropdown } from "components/dropdown";
 
 const UpdateProduct = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [oldImage, setOldImage] = useState("");
   const { userInfo } = useAuth();
 
-  const { control, setValue, handleSubmit, reset } = useForm({
+  const categories = [
+    "Music",
+    "Art",
+    "Sport",
+    "Photography",
+    "Virtual Reality",
+    "Video",
+  ];
+
+  const { control, setValue, handleSubmit, reset, watch } = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -25,8 +34,17 @@ const UpdateProduct = () => {
       image: "",
       category: "",
       createby: "",
+      public: true,
     },
   });
+
+  const watchPublic = watch("public");
+
+  const [selectCategory, setSelectCategory] = useState("");
+  const handleClickOption = async (item) => {
+    setValue("category", item);
+    setSelectCategory(item);
+  };
 
   const updateNFT = async (values) => {
     try {
@@ -35,6 +53,7 @@ const UpdateProduct = () => {
         Price: values.price,
         Category: values.category,
         image: values.image,
+        public: values.public,
       });
       console.log(response);
       setSelectedImage(null);
@@ -78,7 +97,9 @@ const UpdateProduct = () => {
           price: response.data.Price,
           category: response.data.Category,
           image: response.data.image,
+          public: response.data.public,
         });
+        setSelectCategory(response.data.Category);
         setOldImage(response.data.image);
       } catch (error) {
         console.log(error);
@@ -139,14 +160,43 @@ const UpdateProduct = () => {
             </div>
             <div>
               <label htmlFor="category">Category</label>
-              <Input
+              {/* <Input
                 id="category"
                 name="category"
                 control={control}
                 placeholder="Enter your category"
                 className="mt-2"
                 required
-              ></Input>
+              ></Input> */}
+
+              <Dropdown>
+                <Dropdown.Select
+                  placeholder={`${selectCategory || "Enter the category"}`}
+                ></Dropdown.Select>
+                <Dropdown.List>
+                  {categories.length > 0 &&
+                    categories.map((item) => (
+                      <Dropdown.Option
+                        key={item}
+                        onClick={() => handleClickOption(item)}
+                      >
+                        {item}
+                      </Dropdown.Option>
+                    ))}
+                </Dropdown.List>
+              </Dropdown>
+            </div>
+            <div className="flex items-center justify-start gap-x-5">
+              <label htmlFor="public" className="cursor-pointer select-none">
+                Public to marketplace
+              </label>
+              <Toggle
+                id="public"
+                on={watchPublic === true}
+                onClick={() => {
+                  setValue("public", !watchPublic);
+                }}
+              ></Toggle>
             </div>
           </div>
           <div className="flex flex-col gap-y-5">
