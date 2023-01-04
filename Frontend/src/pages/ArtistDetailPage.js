@@ -5,13 +5,10 @@ import { Pagination } from "components/pagination";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 const ArtistDetailPage = () => {
   let lang = JSON.parse(localStorage.getItem("language")) || [];
-  const { t } = useTranslation();
-  console.log(t);
   const { userInfo } = useAuth();
   const params = useParams();
   const [creatorInfo, setCreatorInfo] = useState({});
@@ -27,7 +24,13 @@ const ArtistDetailPage = () => {
       const response2 = await axios.get(`http://localhost:1337/products/`);
       response2.data.forEach((item) => {
         if (item?.createby?.id === creatorInfo.id) {
-          results.push(item);
+          if (item?.createby?.id === userInfo.id) {
+            results.push(item);
+          } else {
+            if (item.public) {
+              results.push(item);
+            }
+          }
         }
       });
 

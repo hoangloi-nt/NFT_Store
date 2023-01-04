@@ -10,14 +10,25 @@ import axios from "axios";
 import { transfer } from "sdk/iconSDK";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
+import Toggle from "components/toggle/Toggle";
+import { Dropdown } from "components/dropdown";
 
 const CreatePage = () => {
   const { t } = useTranslation();
 
+  const categories = [
+    "Music",
+    "Art",
+    "Sport",
+    "Photography",
+    "Virtual Reality",
+    "Video",
+  ];
+
   const [selectedImage, setSelectedImage] = useState(null);
   const { userInfo } = useAuth();
 
-  const { control, setValue, handleSubmit, reset } = useForm({
+  const { control, setValue, handleSubmit, reset, watch } = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -25,8 +36,11 @@ const CreatePage = () => {
       image: "",
       category: "",
       createby: "",
+      public: true,
     },
   });
+
+  const watchPublic = watch("public");
 
   const createNFT = async (values) => {
     console.log(values);
@@ -55,6 +69,7 @@ const CreatePage = () => {
         Price: values.price,
         Category: values.category,
         image: values.image,
+        public: values.public,
         createby: {
           Wallet: `${Number(userInfo.price) - tax}`,
           ...values.createby,
@@ -144,13 +159,19 @@ const CreatePage = () => {
     });
   };
 
+  const [selectCategory, setSelectCategory] = useState("");
+  const handleClickOption = async (item) => {
+    setValue("category", item);
+    setSelectCategory(item);
+  };
+
   return (
     <div className="container">
-      <div className="text-3xl mt-10 mb-10 mx-auto text-center">
+      <div className="mx-auto mt-10 mb-10 text-3xl text-center">
         {t("createPage.title")}
       </div>
       <form onSubmit={handleSubmit(createNFT)}>
-        <div className="flex gap-x-10 justify-center">
+        <div className="flex justify-center gap-x-10">
           <div className="flex flex-col gap-y-5 min-w-[500px]">
             <div>
               <label htmlFor="name">{t("name")}</label>
@@ -177,14 +198,42 @@ const CreatePage = () => {
             </div>
             <div>
               <label htmlFor="category">{t("createPage.category")}</label>
-              <Input
+              {/* <Input
                 id="category"
                 name="category"
                 control={control}
                 placeholder={t("createPage.input3")}
                 className="mt-2"
                 required
-              ></Input>
+              ></Input> */}
+              <Dropdown>
+                <Dropdown.Select
+                  placeholder={`${selectCategory || t("createPage.input3")}`}
+                ></Dropdown.Select>
+                <Dropdown.List>
+                  {categories.length > 0 &&
+                    categories.map((item) => (
+                      <Dropdown.Option
+                        key={item}
+                        onClick={() => handleClickOption(item)}
+                      >
+                        {item}
+                      </Dropdown.Option>
+                    ))}
+                </Dropdown.List>
+              </Dropdown>
+            </div>
+            <div className="flex items-center justify-start gap-x-5">
+              <label htmlFor="public" className="cursor-pointer select-none">
+                Public to marketplace
+              </label>
+              <Toggle
+                id="public"
+                on={watchPublic === true}
+                onClick={() => {
+                  setValue("public", !watchPublic);
+                }}
+              ></Toggle>
             </div>
           </div>
           <div className="flex flex-col gap-y-5">
@@ -206,7 +255,7 @@ const CreatePage = () => {
           {t("createPage.createBtn")}
         </Button>
       </form>
-      <div className="border-t border-t-zinc-400 border-opacity-20 py-10 mt-20">
+      <div className="py-10 mt-20 border-t border-t-zinc-400 border-opacity-20">
         <TopCreators></TopCreators>
       </div>
     </div>
