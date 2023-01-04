@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Button } from "components/button";
+import { useAuth } from "components/contexts/auth-context";
 import { TopCreators } from "components/creator";
 import { ImageUpload } from "components/img";
 import Input from "components/input/Input";
@@ -8,10 +9,13 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const UpdateProduct = () => {
+const ResellPage = () => {
   const { id } = useParams();
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [oldImage, setOldImage] = useState("");
+  const { userInfo } = useAuth();
+  const [minPrice, setMinPrice] = useState(0);
 
   const { control, setValue, handleSubmit, reset } = useForm({
     mode: "onChange",
@@ -21,6 +25,7 @@ const UpdateProduct = () => {
       image: "",
       category: "",
       createby: "",
+      resellby: "",
     },
   });
 
@@ -31,6 +36,7 @@ const UpdateProduct = () => {
         Price: values.price,
         Category: values.category,
         image: values.image,
+        resellby: userInfo,
       });
       console.log(response);
       setSelectedImage(null);
@@ -42,26 +48,6 @@ const UpdateProduct = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     if (!userInfo.address) return;
-  //     async function fetchUserData() {
-  //       setValue("createby", {
-  //         Address: userInfo.address,
-  //         Avatar: userInfo.avatar,
-  //         Name: userInfo.name,
-  //         id: userInfo.id,
-  //       });
-  //     }
-  //     fetchUserData();
-  //   }, [
-  //     setValue,
-  //     userInfo.address,
-  //     userInfo.avatar,
-  //     userInfo.id,
-  //     userInfo.name,
-  //     userInfo.price,
-  //   ]);
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -69,6 +55,7 @@ const UpdateProduct = () => {
           `http://localhost:1337/products/${id}`
         );
         console.log(response.data);
+        setMinPrice(response.data.Price);
         reset({
           name: response.data.Name,
           price: response.data.Price,
@@ -100,13 +87,9 @@ const UpdateProduct = () => {
     setValue("image", `${response.data.data.url}`);
   };
 
-  const handleDeleteImage = () => {
-    setSelectedImage(null);
-  };
-
   return (
     <div className="container">
-      <div className="mx-auto mt-10 mb-10 text-3xl text-center">Update NFT</div>
+      <div className="mx-auto mt-10 mb-10 text-3xl text-center">Resell NFT</div>
       <form onSubmit={handleSubmit(updateNFT)}>
         <div className="flex justify-center gap-x-10">
           <div className="flex flex-col gap-y-5 min-w-[500px]">
@@ -130,6 +113,7 @@ const UpdateProduct = () => {
                 placeholder="Enter a price in ICX"
                 className="mt-2"
                 type="number"
+                min={minPrice}
                 required
               ></Input>
             </div>
@@ -147,10 +131,10 @@ const UpdateProduct = () => {
           </div>
           <div className="flex flex-col gap-y-5">
             <ImageUpload
+              className="pointer-events-none"
               name="image"
-              image={selectedImage}
               onChange={handleSelectImage}
-              handleDeleteImage={handleDeleteImage}
+              image={selectedImage}
               oldImage={oldImage}
             ></ImageUpload>
           </div>
@@ -162,7 +146,7 @@ const UpdateProduct = () => {
           className="mx-auto mt-10"
           width="200px"
         >
-          Update
+          Resell
         </Button>
       </form>
       <div className="py-10 mt-20 border-t border-t-zinc-400 border-opacity-20">
@@ -172,4 +156,4 @@ const UpdateProduct = () => {
   );
 };
 
-export default UpdateProduct;
+export default ResellPage;

@@ -73,7 +73,8 @@
     "created": "Created Product",
     "buy": "Bought Product",
     "text1": "You have not created any products yet",
-    "text2": "You have not purchased any products yet"
+    "text2": "You have not purchased any products yet",
+    "text3": "You have not resold any products yet"
   },
 
   "buyPage": {

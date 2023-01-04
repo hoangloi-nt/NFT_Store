@@ -12,6 +12,8 @@ const Collection = () => {
   const [option, setOption] = useState("create");
   let createProduct = [];
   let buyProduct = [];
+  let resellProduct = [];
+
   useEffect(() => {
     fetch("http://localhost:1337/products").then((response) =>
       response.json().then((data) => {
@@ -26,6 +28,11 @@ const Collection = () => {
     if (item.boughtby) {
       if (item.boughtby.id === userInfo.id) {
         buyProduct.push(item);
+      }
+    }
+    if (item.resellby) {
+      if (item.resellby.id === userInfo.id) {
+        resellProduct.push(item);
       }
     }
   });
@@ -55,7 +62,17 @@ const Collection = () => {
           >
             {t("collectionPage.buy")}
           </Button>
+          <Button
+            className="mb-6 ml-10"
+            onClick={() => setOption("resell")}
+            active={option === "resell"}
+            kind={"secondary"}
+            width="180px"
+          >
+            Resold
+          </Button>
         </div>
+
         {option === "create" ? (
           createProduct.length !== 0 ? (
             <Pagination items={createProduct}></Pagination>

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "components/contexts/auth-context";
 
 const UpdateProduct = lazy(() => import("pages/UpdateProduct"));
+const ResellPage = lazy(() => import("pages/ResellPage"));
 const SellPage = lazy(() => import("pages/SellPage"));
 const ProfilePage = lazy(() => import("pages/ProfilePage"));
 const NotFoundPage = lazy(() => import("pages/NotFoundPage"));
@@ -41,6 +42,10 @@ const App = () => {
               <Route
                 path="/update/:id"
                 element={<UpdateProduct></UpdateProduct>}
+              ></Route>
+              <Route
+                path="/resell/:id"
+                element={<ResellPage></ResellPage>}
               ></Route>
               <Route path="/create" element={<CreatePage></CreatePage>}></Route>
               <Route path="/buy/:nftId" element={<BuyPage></BuyPage>}></Route>

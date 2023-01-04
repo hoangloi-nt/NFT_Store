@@ -73,7 +73,8 @@
     "created": "Sản phẩm đã tạo",
     "buy": "Sản phẩm đã mua",
     "text1": "Bạn chưa tạo bất cứ sản phẩm nào",
-    "text2": "Bạn chưa mua bất cứ sản phẩm nào"
+    "text2": "Bạn chưa mua bất cứ sản phẩm nào",
+    "text3": "Bạn chưa bán lại bất cứ sản phẩm nào"
   },
 
   "buyPage": {

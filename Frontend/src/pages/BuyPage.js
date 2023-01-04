@@ -262,7 +262,7 @@ const BuyPage = () => {
                 </>
               )}
           {sold && checkBuyUser && (
-            <div className="my-4 message-text">
+            <div className="flex flex-col items-center justify-center my-4 message-text gap-y-5">
               <a
                 href={`https://sejong.tracker.solidwallet.io/transaction/${
                   txHash || productData?.txHash
@@ -276,6 +276,15 @@ const BuyPage = () => {
                   TxHash?.slice(0, 25)}
                 ...
               </a>
+
+              <Button
+                width="200px"
+                type="button"
+                kind="primary"
+                to={`/resell/${productData.id}`}
+              >
+                Resell
+              </Button>
             </div>
           )}
           {checkUser && (
