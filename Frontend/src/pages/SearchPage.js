@@ -29,7 +29,9 @@ const SearchPage = () => {
 			<h2 className="mt-16 mb-4 heading-text">Search results</h2>
 
 			{result > 0 ? (
-				<div className={`mb-4 grid grid-cols-4 mx-auto gap-x-10 gap-y-12`}>
+				<div
+					className={`mb-4 grid md:grid-cols-3 grid-cols-2 lg:grid-cols-4 mx-auto gap-x-10 gap-y-12`}
+				>
 					{searchResult.map((product) => {
 						return (
 							<Card
