@@ -106,7 +106,7 @@ const Search = () => {
         )}
         onClickOutside={handleHideResult}
       >
-        <div className="header-search rounded-sm relative flex items-center mx-5 bg-background border border-white w-[300px]">
+        <div className="header-search rounded-sm relative flex items-center mx-5 bg-background border border-white lg:w-[300px] w-[200px]">
           <input
             ref={inputRef}
             value={searchValue}
