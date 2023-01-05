@@ -14,7 +14,8 @@ import Toggle from "components/toggle/Toggle";
 import { Dropdown } from "components/dropdown";
 
 const CreatePage = () => {
-  const { t } = useTranslation();
+	const { t } = useTranslation();
+
 
   const categories = [
     "Music",
@@ -47,20 +48,22 @@ const CreatePage = () => {
     const tax = (Number(values.price) * 2) / 100;
     console.log("tax", tax);
 
-    Swal.fire(
-      t("createPage.tax1"),
-      `${t("createPage.tax2")} ${tax}`,
-      "question"
-    );
 
-    const transferSuccess = await transfer({
-      to: "hxd9852eb7b8c16d76b5135b0b5e01dcc52725e8cd",
-      value: tax,
-    });
-    if (transferSuccess) {
-      handleCreateNFT(values, tax);
-    }
-  };
+		Swal.fire(
+			t("createPage.tax1"),
+			`${t("createPage.tax2")} ${tax}`,
+			"question",
+		);
+
+		const transferSuccess = await transfer({
+			to: "hxd9852eb7b8c16d76b5135b0b5e01dcc52725e8cd",
+			value: tax,
+		});
+		if (transferSuccess) {
+			handleCreateNFT(values, tax);
+		}
+	};
+
 
   async function handleCreateNFT(values, tax) {
     try {
@@ -92,72 +95,74 @@ const CreatePage = () => {
     }
   }
 
-  useEffect(() => {
-    if (!userInfo.address) return;
-    async function fetchUserData() {
-      setValue("createby", {
-        Address: userInfo.address,
-        Avatar: userInfo.avatar,
-        Name: userInfo.name,
-        id: userInfo.id,
-      });
-    }
-    fetchUserData();
-  }, [
-    setValue,
-    userInfo.address,
-    userInfo.avatar,
-    userInfo.id,
-    userInfo.name,
-    userInfo.price,
-  ]);
 
-  const handleSelectImage = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setTime(2500);
-    setSelectedImage(file);
-    const bodyFormData = new FormData();
-    bodyFormData.append("image", file);
-    const response = await axios({
-      method: "post",
-      url: "https://api.imgbb.com/1/upload?key=ba1f1db043890d6ead7a1b777cb35cd5",
-      data: bodyFormData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    setValue("image", `${response.data.data.url}`);
-  };
+	useEffect(() => {
+		if (!userInfo.address) return;
+		async function fetchUserData() {
+			setValue("createby", {
+				Address: userInfo.address,
+				Avatar: userInfo.avatar,
+				Name: userInfo.name,
+				id: userInfo.id,
+			});
+		}
+		fetchUserData();
+	}, [
+		setValue,
+		userInfo.address,
+		userInfo.avatar,
+		userInfo.id,
+		userInfo.name,
+		userInfo.price,
+	]);
 
-  const handleDeleteImage = () => {
-    setSelectedImage(null);
-  };
+	const handleSelectImage = async (e) => {
+		const file = e.target.files[0];
+		if (!file) return;
+		setTime(2500);
+		setSelectedImage(file);
+		const bodyFormData = new FormData();
+		bodyFormData.append("image", file);
+		const response = await axios({
+			method: "post",
+			url: "https://api.imgbb.com/1/upload?key=ba1f1db043890d6ead7a1b777cb35cd5",
+			data: bodyFormData,
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		});
+		setValue("image", `${response.data.data.url}`);
+	};
 
-  const setTime = (time) => {
-    let timerInterval;
-    Swal.fire({
-      title: t("createPage.time1"),
-      html: `${t("createPage.time2")} <b></b> milliseconds.`,
-      timer: time,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const b = Swal.getHtmlContainer().querySelector("b");
-        timerInterval = setInterval(() => {
-          b.textContent = Swal.getTimerLeft();
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    }).then((result) => {
-      /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
-      }
-    });
-  };
+	const handleDeleteImage = () => {
+		setSelectedImage(null);
+	};
+
+	const setTime = (time) => {
+		let timerInterval;
+		Swal.fire({
+			title: t("createPage.time1"),
+			html: `${t("createPage.time2")} <b></b> milliseconds.`,
+			timer: time,
+			timerProgressBar: true,
+			didOpen: () => {
+				Swal.showLoading();
+				const b = Swal.getHtmlContainer().querySelector("b");
+				timerInterval = setInterval(() => {
+					b.textContent = Swal.getTimerLeft();
+				}, 100);
+			},
+			willClose: () => {
+				clearInterval(timerInterval);
+			},
+		}).then((result) => {
+			/* Read more about handling dismissals below */
+			if (result.dismiss === Swal.DismissReason.timer) {
+				console.log("I was closed by the timer");
+			}
+		});
+	};
+
 
   const [selectCategory, setSelectCategory] = useState("");
   const handleClickOption = async (item) => {
@@ -171,8 +176,8 @@ const CreatePage = () => {
         {t("createPage.title")}
       </div>
       <form onSubmit={handleSubmit(createNFT)}>
-        <div className="flex justify-center gap-x-10">
-          <div className="flex flex-col gap-y-5 min-w-[500px]">
+        <div className="flex flex-wrap-reverse justify-center gap-10">
+					<div className="flex flex-col gap-y-5  md:min-w-[400px] min-w-[350px] lg:min-w-[500px]">
             <div>
               <label htmlFor="name">{t("name")}</label>
               <Input
@@ -260,6 +265,7 @@ const CreatePage = () => {
       </div>
     </div>
   );
+
 };
 
 export default CreatePage;

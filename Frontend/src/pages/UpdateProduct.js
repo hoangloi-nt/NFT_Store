@@ -12,6 +12,7 @@ import Toggle from "components/toggle/Toggle";
 import { Dropdown } from "components/dropdown";
 
 const UpdateProduct = () => {
+
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(null);
   const [oldImage, setOldImage] = useState("");
@@ -65,25 +66,27 @@ const UpdateProduct = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     if (!userInfo.address) return;
-  //     async function fetchUserData() {
-  //       setValue("createby", {
-  //         Address: userInfo.address,
-  //         Avatar: userInfo.avatar,
-  //         Name: userInfo.name,
-  //         id: userInfo.id,
-  //       });
-  //     }
-  //     fetchUserData();
-  //   }, [
-  //     setValue,
-  //     userInfo.address,
-  //     userInfo.avatar,
-  //     userInfo.id,
-  //     userInfo.name,
-  //     userInfo.price,
-  //   ]);
+
+	//   useEffect(() => {
+	//     if (!userInfo.address) return;
+	//     async function fetchUserData() {
+	//       setValue("createby", {
+	//         Address: userInfo.address,
+	//         Avatar: userInfo.avatar,
+	//         Name: userInfo.name,
+	//         id: userInfo.id,
+	//       });
+	//     }
+	//     fetchUserData();
+	//   }, [
+	//     setValue,
+	//     userInfo.address,
+	//     userInfo.avatar,
+	//     userInfo.id,
+	//     userInfo.name,
+	//     userInfo.price,
+	//   ]);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -108,33 +111,35 @@ const UpdateProduct = () => {
     fetchData();
   }, [id, reset, selectedImage]);
 
-  const handleSelectImage = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setSelectedImage(file);
-    const bodyFormData = new FormData();
-    bodyFormData.append("image", file);
-    const response = await axios({
-      method: "post",
-      url: "https://api.imgbb.com/1/upload?key=ba1f1db043890d6ead7a1b777cb35cd5",
-      data: bodyFormData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    setValue("image", `${response.data.data.url}`);
-  };
 
-  const handleDeleteImage = () => {
-    setSelectedImage(null);
-  };
+	const handleSelectImage = async (e) => {
+		const file = e.target.files[0];
+		if (!file) return;
+		setSelectedImage(file);
+		const bodyFormData = new FormData();
+		bodyFormData.append("image", file);
+		const response = await axios({
+			method: "post",
+			url: "https://api.imgbb.com/1/upload?key=ba1f1db043890d6ead7a1b777cb35cd5",
+			data: bodyFormData,
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		});
+		setValue("image", `${response.data.data.url}`);
+	};
+
+	const handleDeleteImage = () => {
+		setSelectedImage(null);
+	};
+
 
   return (
     <div className="container">
       <div className="mx-auto mt-10 mb-10 text-3xl text-center">Update NFT</div>
       <form onSubmit={handleSubmit(updateNFT)}>
-        <div className="flex justify-center gap-x-10">
-          <div className="flex flex-col gap-y-5 min-w-[500px]">
+        <div className="flex flex-wrap-reverse justify-center gap-10">
+					<div className="flex flex-col gap-y-5 md:min-w-[400px] min-w-[350px] lg:min-w-[500px]">
             <div>
               <label htmlFor="name">Name</label>
               <Input
@@ -210,20 +215,21 @@ const UpdateProduct = () => {
           </div>
         </div>
 
-        <Button
-          type="submit"
-          kind="primary"
-          className="mx-auto mt-10"
-          width="200px"
-        >
-          Update
-        </Button>
-      </form>
-      <div className="py-10 mt-20 border-t border-t-zinc-400 border-opacity-20">
-        <TopCreators></TopCreators>
-      </div>
-    </div>
-  );
+
+				<Button
+					type="submit"
+					kind="primary"
+					className="mx-auto mt-10"
+					width="200px"
+				>
+					Update
+				</Button>
+			</form>
+			<div className="py-10 mt-20 border-t border-t-zinc-400 border-opacity-20">
+				<TopCreators></TopCreators>
+			</div>
+		</div>
+	);
 };
 
 export default UpdateProduct;

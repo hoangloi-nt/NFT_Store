@@ -4,13 +4,13 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 const Main = () => {
-  return (
-    <Fragment>
-      <Header></Header>
-      <Outlet></Outlet>
-      <Footer></Footer>
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			{/* <Header></Header> */}
+			<Outlet></Outlet>
+			{/* <Footer></Footer> */}
+		</Fragment>
+	);
 };
 
 export default Main;
