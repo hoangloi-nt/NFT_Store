@@ -8,43 +8,64 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+import Toggle from "components/toggle/Toggle";
+import { Dropdown } from "components/dropdown";
 
 const UpdateProduct = () => {
-	const { id } = useParams();
-	const navigate = useNavigate();
-	const [selectedImage, setSelectedImage] = useState(null);
-	const [oldImage, setOldImage] = useState("");
-	const { userInfo } = useAuth();
 
-	const { control, setValue, handleSubmit, reset } = useForm({
-		mode: "onChange",
-		defaultValues: {
-			name: "",
-			price: "",
-			image: "",
-			category: "",
-			createby: "",
-		},
-	});
+  const { id } = useParams();
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [oldImage, setOldImage] = useState("");
+  const { userInfo } = useAuth();
 
-	const updateNFT = async (values) => {
-		try {
-			const response = await axios.put(`http://localhost:1337/products/${id}`, {
-				Name: values.name,
-				Price: values.price,
-				Category: values.category,
-				image: values.image,
-			});
-			console.log(response);
-			setSelectedImage(null);
-			toast.success("Update NFT successfully!");
-		} catch (error) {
-			console.log(error);
-			toast.error(error.message);
-			setSelectedImage(null);
-		}
-	};
+  const categories = [
+    "Music",
+    "Art",
+    "Sport",
+    "Photography",
+    "Virtual Reality",
+    "Video",
+  ];
+
+  const { control, setValue, handleSubmit, reset, watch } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      name: "",
+      price: "",
+      image: "",
+      category: "",
+      createby: "",
+      public: true,
+    },
+  });
+
+  const watchPublic = watch("public");
+
+  const [selectCategory, setSelectCategory] = useState("");
+  const handleClickOption = async (item) => {
+    setValue("category", item);
+    setSelectCategory(item);
+  };
+
+  const updateNFT = async (values) => {
+    try {
+      const response = await axios.put(`http://localhost:1337/products/${id}`, {
+        Name: values.name,
+        Price: values.price,
+        Category: values.category,
+        image: values.image,
+        public: values.public,
+      });
+      console.log(response);
+      setSelectedImage(null);
+      toast.success("Update NFT successfully!");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+      setSelectedImage(null);
+    }
+  };
+
 
 	//   useEffect(() => {
 	//     if (!userInfo.address) return;
@@ -66,26 +87,30 @@ const UpdateProduct = () => {
 	//     userInfo.price,
 	//   ]);
 
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await axios.get(
-					`http://localhost:1337/products/${id}`,
-				);
-				console.log(response.data);
-				reset({
-					name: response.data.Name,
-					price: response.data.Price,
-					category: response.data.Category,
-					image: response.data.image,
-				});
-				setOldImage(response.data.image);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		fetchData();
-	}, [id, reset, selectedImage]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `http://localhost:1337/products/${id}`
+        );
+        console.log(response.data);
+        reset({
+          name: response.data.Name,
+          price: response.data.Price,
+          category: response.data.Category,
+          image: response.data.image,
+          public: response.data.public,
+        });
+        setSelectCategory(response.data.Category);
+        setOldImage(response.data.image);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [id, reset, selectedImage]);
+
 
 	const handleSelectImage = async (e) => {
 		const file = e.target.files[0];
@@ -108,57 +133,88 @@ const UpdateProduct = () => {
 		setSelectedImage(null);
 	};
 
-	return (
-		<div className="container">
-			<div className="mx-auto mt-10 mb-10 text-3xl text-center">Update NFT</div>
-			<form onSubmit={handleSubmit(updateNFT)}>
-				<div className="flex flex-wrap-reverse justify-center gap-10">
+
+  return (
+    <div className="container">
+      <div className="mx-auto mt-10 mb-10 text-3xl text-center">Update NFT</div>
+      <form onSubmit={handleSubmit(updateNFT)}>
+        <div className="flex flex-wrap-reverse justify-center gap-10">
 					<div className="flex flex-col gap-y-5 md:min-w-[400px] min-w-[350px] lg:min-w-[500px]">
-						<div>
-							<label htmlFor="name">Name</label>
-							<Input
-								id="name"
-								name="name"
-								control={control}
-								placeholder="Enter a name of NFT"
-								className="mt-2"
-								required
-							></Input>
-						</div>
-						<div>
-							<label htmlFor="price">Price (ICX)</label>
-							<Input
-								id="price"
-								name="price"
-								control={control}
-								placeholder="Enter a price in ICX"
-								className="mt-2"
-								type="number"
-								required
-							></Input>
-						</div>
-						<div>
-							<label htmlFor="category">Category</label>
-							<Input
-								id="category"
-								name="category"
-								control={control}
-								placeholder="Enter your category"
-								className="mt-2"
-								required
-							></Input>
-						</div>
-					</div>
-					<div className="flex flex-col gap-y-5">
-						<ImageUpload
-							name="image"
-							image={selectedImage}
-							onChange={handleSelectImage}
-							handleDeleteImage={handleDeleteImage}
-							oldImage={oldImage}
-						></ImageUpload>
-					</div>
-				</div>
+            <div>
+              <label htmlFor="name">Name</label>
+              <Input
+                id="name"
+                name="name"
+                control={control}
+                placeholder="Enter a name of NFT"
+                className="mt-2"
+                required
+              ></Input>
+            </div>
+            <div>
+              <label htmlFor="price">Price (ICX)</label>
+              <Input
+                id="price"
+                name="price"
+                control={control}
+                placeholder="Enter a price in ICX"
+                className="mt-2"
+                type="number"
+                required
+              ></Input>
+            </div>
+            <div>
+              <label htmlFor="category">Category</label>
+              {/* <Input
+                id="category"
+                name="category"
+                control={control}
+                placeholder="Enter your category"
+                className="mt-2"
+                required
+              ></Input> */}
+
+              <Dropdown>
+                <Dropdown.Select
+                  placeholder={`${selectCategory || "Enter the category"}`}
+                ></Dropdown.Select>
+                <Dropdown.List>
+                  {categories.length > 0 &&
+                    categories.map((item) => (
+                      <Dropdown.Option
+                        key={item}
+                        onClick={() => handleClickOption(item)}
+                      >
+                        {item}
+                      </Dropdown.Option>
+                    ))}
+                </Dropdown.List>
+              </Dropdown>
+            </div>
+            <div className="flex items-center justify-start gap-x-5">
+              <label htmlFor="public" className="cursor-pointer select-none">
+                Public to marketplace
+              </label>
+              <Toggle
+                id="public"
+                on={watchPublic === true}
+                onClick={() => {
+                  setValue("public", !watchPublic);
+                }}
+              ></Toggle>
+            </div>
+          </div>
+          <div className="flex flex-col gap-y-5">
+            <ImageUpload
+              name="image"
+              image={selectedImage}
+              onChange={handleSelectImage}
+              handleDeleteImage={handleDeleteImage}
+              oldImage={oldImage}
+            ></ImageUpload>
+          </div>
+        </div>
+
 
 				<Button
 					type="submit"

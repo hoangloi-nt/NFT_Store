@@ -81,24 +81,27 @@ const Category = () => {
 				))}
 			</div>
 
-			<div className="my-5">
-				<div
-					className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-4 lg:gap-10`}
-				>
-					{productList.map((product) => {
-						return (
-							<Card
-								key={product.id}
-								to={`/buy/${product.id}`}
-								title={product?.Name}
-								price={product?.Price}
-								image={product?.image}
-								address={product?.createby?.address}
-								avatar={product?.createby?.avatar}
-							></Card>
-						);
-					})}
-				</div>
+
+      <div className="my-5">
+        <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-4 lg:gap-10`}>
+          {productList.map((product) => {
+            if (product.public) {
+              return (
+                <Card
+                  key={product.id}
+                  to={`/buy/${product.id}`}
+                  title={product?.Name}
+                  price={product?.Price}
+                  image={product?.image}
+                  address={product?.createby?.address}
+                  avatar={product?.createby?.avatar}
+                ></Card>
+              );
+            }
+            return null;
+          })}
+        </div>
+
 
 				<ReactPaginate
 					key={selectedCategory}
