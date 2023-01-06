@@ -82,7 +82,7 @@ const Footer = () => {
   ];
   return (
     <FooterStyled className="!py-5 container">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-center justify-between lg:flex-row">
         <div className="flex flex-col">
           <NavLink to="/">
             <img
@@ -100,7 +100,7 @@ const Footer = () => {
             <img alt="twitter" src={require("../../img/twitter.png")} />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-x-10">
+        <div className="flex flex-wrap items-center justify-between gap-10 mt-10">
           {menuLinks.map((menuLink) => (
             <div
               key={menuLink.title}
@@ -124,7 +124,7 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-between mt-6 ">
+      <div className="flex flex-wrap items-center justify-between gap-5 mt-10 lg:mt-6">
         <p className="text-sm font-medium text-[#545C71]">
           {t("footer.footer-text2")}
         </p>

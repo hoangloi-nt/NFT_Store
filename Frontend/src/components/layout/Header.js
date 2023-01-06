@@ -20,6 +20,12 @@ const Header = () => {
   const { t, i18n } = useTranslation();
   const [address, setAddress] = useState(localStorage.getItem("address"));
   const { show, setShow, nodeRef } = useClickOutSide();
+  const {
+    show: showMobile,
+    setShow: setShowMobile,
+    nodeRef: nodeRefMobile,
+  } = useClickOutSide();
+
   const [price, setPrice] = useState("");
   const navigate = useNavigate();
 
@@ -192,7 +198,7 @@ const Header = () => {
       </header>
 
       <header className="sticky top-0 z-50 bg-[#04040c] lg:hidden">
-        {show && (
+        {showMobile && (
           <div className="fixed m-auto inset-0 flex justify-center items-start flex-col bg-white w-[200px] h-[240px] rounded-sm overflow-hidden z-20 text-black">
             <span
               className="w-full p-3 hover:bg-slate-500 hover:text-white "
@@ -280,39 +286,13 @@ const Header = () => {
                       </div>
                       <span
                         className="text-gray-400 cursor-pointer address-user"
-                        onClick={() => setShow(!show)}
-                        ref={nodeRef}
+                        onClick={() => setShowMobile(!showMobile)}
+                        ref={nodeRefMobile}
                       >
                         {hashShortener(address)}
                         <div className="font-medium text-white">
                           {parseFloat(price).toFixed(4)} ICX
                         </div>
-                        {/* {show && (
-                        <div className="fixed inset-0 flex justify-center items-start flex-col bg-white w-[200px] h-[240px] rounded-sm overflow-hidden z-10">
-                          <span
-                            className="w-full p-3 hover:bg-slate-500 hover:text-white "
-                            onClick={handleChangeLanguage}
-                          >
-                            {t("changeName")}
-                          </span>
-                          <div className="w-full hover:bg-slate-500 hover:text-white">
-                            <DarkMode />
-                          </div>
-                          <span className="w-full p-3 hover:bg-slate-500 hover:text-white">
-                            <NavLink to={"/create"}>{t("createNFT")}</NavLink>
-                          </span>
-                          <span className="w-full p-3 hover:bg-slate-500 hover:text-white">
-                            <NavLink to={"/profile"}>{t("profile")}</NavLink>
-                          </span>
-                          <Button
-                            kind="primary"
-                            className="w-full !rounded-tl-none !rounded-tr-none text-white !bg-red-500"
-                            onClick={disConnectHandle}
-                          >
-                            {t("disconnect")}
-                          </Button>
-                        </div>
-                      )} */}
                       </span>
                     </div>
                   ) : (
