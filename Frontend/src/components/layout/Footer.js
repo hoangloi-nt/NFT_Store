@@ -82,7 +82,7 @@ const Footer = () => {
   ];
   return (
     <FooterStyled className="!py-5 container">
-      <div className="flex flex-col items-center justify-between lg:flex-row">
+      <div className="flex flex-col items-center justify-between mt-20 lg:flex-row lg:mt-0">
         <div className="flex flex-col">
           <NavLink to="/">
             <img
