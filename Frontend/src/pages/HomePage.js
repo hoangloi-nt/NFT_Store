@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Glowing } from "components/glowing";
 import { EthereumLogo } from "components/ethereum-logo";
+import { TopCreators } from "components/creator";
 
 const HomePage = () => {
 	const { t } = useTranslation();
@@ -30,7 +31,7 @@ const HomePage = () => {
 		<div className="container">
 			<div className="flex items-center justify-between mt-10">
 				<div>
-					<div className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#bc61f3] to-[#5c43f6]">
+					<div className="text-4xl homepage-title md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#bc61f3] to-[#5c43f6]">
 						{t("homepage.title1")}
 						<br></br> {t("homepage.title2")}
 					</div>
@@ -66,10 +67,16 @@ const HomePage = () => {
 				</div>
 			</div>
 			<div className="relative flex items-center justify-center mb-10 md:mt-32">
-				<img src={logos} alt="Icon logos" className="hidden md:block " />
+				<img
+					src={logos}
+					alt="Icon logos"
+					className="hidden md:block logo-list "
+				/>
 				<Glowing className="left-[-30%]"></Glowing>
 			</div>
-
+			<div className="py-10 mt-20 border-t border-t-zinc-400 border-opacity-20">
+				<TopCreators></TopCreators>
+			</div>
 			<div className="flex flex-col justify-center border-t border-t-zinc-400 border-opacity-20">
 				<div className="my-6 text-2xl font-bold text-left md:my-10 md:text-3xl">
 					{t("homepage.hot")}

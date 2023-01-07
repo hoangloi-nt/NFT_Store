@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 const BuyPage = () => {
+
   const BuyPageStyled = styled.div`
     .modal-wrapper {
       background-color: rgba(0, 0, 0, 0.9);
@@ -29,55 +30,66 @@ const BuyPage = () => {
       z-index: 100;
     }
     .modal {
-      background-color: #1c233d;
-      width: 500px;
-      height: 270px;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      flex-direction: column;
-      font-size: 18px;
-      position: relative;
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 10px;
-    }
-    .loader {
-      border: 10px solid #f3f3f3; /* Light grey */
-      border-top: 10px solid #3498db; /* Blue */
-      border-left: 10px solid #3498db; /* Blue */
-      border-right: 10px solid #3498db; /*Blue */
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      animation: spin 2s linear infinite;
-      margin-bottom: 30px;
-      margin-top: 30px;
-    }
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    .close-btn {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 4px 17px;
-      font-size: 35px;
-      cursor: pointer;
-      :hover {
-        color: #ccc;
-      }
-    }
-    .message-success-link {
-      color: blue;
-      display: flex;
-      justify-content: center;
-    }
+			background-color: #1c233d;
+			width: 500px;
+			height: 270px;
+			color: #fff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			flex-direction: column;
+			font-size: 18px;
+			position: relative;
+			box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 10px;
+		}
+		.loader {
+			border: 10px solid #f3f3f3; /* Light grey */
+			border-top: 10px solid #3498db; /* Blue */
+			border-left: 10px solid #3498db; /* Blue */
+			border-right: 10px solid #3498db; /*Blue */
+			border-radius: 50%;
+			width: 100px;
+			height: 100px;
+			animation: spin 2s linear infinite;
+			margin-bottom: 30px;
+			margin-top: 30px;
+		}
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+		.close-btn {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 4px 17px;
+			font-size: 35px;
+			cursor: pointer;
+			:hover {
+				color: #ccc;
+			}
+		}
+		.message-success-link {
+			color: blue;
+			display: flex;
+			justify-content: center;
+		}
+		@media only screen and (max-width: 767px) {
+			.modal {
+				width: 377px;
+				height: 220px;
+				font-size: 14px;
+			}
+			.loader {
+				width: 80px;
+				height: 80px;
+			}
+		}
   `;
   const { t } = useTranslation();
   const { nftId } = useParams();
@@ -91,6 +103,7 @@ const BuyPage = () => {
   const [checkBuyUser, setCheckBuyUser] = useState(false);
   const [txHash, setTxHash] = useState("");
   let TxHash = "";
+
 
   const sendToken = async (address, price) => {
     setModal(true);

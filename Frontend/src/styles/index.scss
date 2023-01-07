@@ -140,6 +140,60 @@ a {
 ::-webkit-scrollbar-thumb:hover {
 	background: #6f5cf1;
 }
+
+/* Header mobile */
+
+.menu-content {
+	display: block;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 70%;
+	height: 100%;
+	background: #171a2b;
+	border-right: 1px solid #2f3250;
+	z-index: 15;
+	transform: translateX(180%);
+	animation-delay: 0.3s;
+	transition: all 0.5s ease-in;
+	animation: transform 0.5s ease-in;
+	box-shadow: 10px 10px 20px rgba(218, 213, 213, 0.4);
+}
+
+.overlay {
+	display: block;
+	visibility: hidden;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	transition: all 0.3s ease-in;
+	animation: opacity 0.3s ease-in;
+	z-index: 10;
+}
+
+.menu-content ul {
+	margin-top: 70px;
+}
+
+.menu-content ul li {
+	padding: 10px 30px;
+}
+
+.nav__input:checked ~ .menu-content {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.nav__input:checked ~ .overlay {
+	visibility: visible;
+	opacity: 1;
+}
+
 // Mobile
 @media only screen and (max-width: 767px) {
 	.container {
@@ -149,80 +203,14 @@ a {
 		font-size: 24px;
 	}
 }
-// Tablet
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-}
-
-/* Header mobile */
-
-.menu-content {
-  display: block;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 70%;
-  height: 100%;
-  background: #171a2b;
-  border-right: 1px solid #2f3250;
-  z-index: 15;
-  transform: translateX(180%);
-  animation-delay: 0.3s;
-  transition: all 0.5s ease-in;
-  animation: transform 0.5s ease-in;
-  box-shadow: 10px 10px 20px rgba(218, 213, 213, 0.4);
-}
-
-.overlay {
-  display: block;
-  visibility: hidden;
-  background-color: rgba(0, 0, 0, 0.6);
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 0.3s ease-in;
-  animation: opacity 0.3s ease-in;
-  z-index: 10;
-}
-
-.menu-content ul {
-  margin-top: 70px;
-}
-
-.menu-content ul li {
-  padding: 10px 30px;
-}
-
-.nav__input:checked ~ .menu-content {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.nav__input:checked ~ .overlay {
-  visibility: visible;
-  opacity: 1;
-}
-
-@media screen and (max-width: 768px) {
-  .container {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .text-heading {
-    font-size: 38px;
-  }
-}
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .container {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
+	.container {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
 
-  .text-heading {
-    font-size: 38px;
-  }
+	.text-heading {
+		font-size: 38px;
+	}
 }

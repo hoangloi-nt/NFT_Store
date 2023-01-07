@@ -23,7 +23,7 @@ export default function Pagination(props) {
 	const Product = () => {
 		return (
 			<div
-				className={`grid grid-cols-4 mx-auto gap-x-10 gap-y-12 ${className}`}
+				className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-3 lg:gap-10 ${className}`}
 			>
 				{currentItems.map((product) => {
 					return (
