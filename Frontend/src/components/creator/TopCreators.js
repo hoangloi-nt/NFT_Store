@@ -10,7 +10,7 @@ const Container = styled.div`
 	flex-direction: column;
 	gap: 41px;
 	align-items: center;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 `;
 
 const TopCreators = () => {
@@ -20,19 +20,18 @@ const TopCreators = () => {
 	useEffect(() => {
 		axios.get("http://localhost:1337/creators").then((res) => {
 			setCreators(res.data);
-			console.log(res.data);
 		});
 	}, []);
 
 	return (
 		<Container>
 			<h1 className="heading-text">{t("topCreators.title")}</h1>
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-7 lg:grid-cols-3">
+			<div className="grid w-full grid-cols-1 md:grid-cols-2 gap-7 lg:grid-cols-3">
 				{creators.map((creator) => {
 					return (
 						<Creator
 							key={creator?.id}
-							to={"/"}
+							to={`/artist/+${creator?.id}`}
 							address={creator?.address}
 							avatar={creator?.avatar}
 							totalProducts={creator?.create.length}
@@ -40,9 +39,6 @@ const TopCreators = () => {
 					);
 				})}
 			</div>
-			<Button width={"142px"} height={"39px"} kind="secondary">
-				{t("topCreators.watch")}
-			</Button>
 		</Container>
 	);
 };

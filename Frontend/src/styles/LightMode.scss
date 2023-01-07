@@ -4,9 +4,29 @@ body.light {
 
 .light {
 	color: #000;
-	& .card {
-		background-color: #aeb9d5;
+	& .logo {
+		filter: brightness(0.6);
 	}
+	& .logo-list {
+		filter: brightness(0.5);
+	}
+	& .homepage-title {
+		filter: brightness(0.7);
+	}
+	& input,
+	.drop-down-select,
+	.drop-down-list {
+		background-color: #8599cd;
+		color: #000;
+	}
+	& header {
+		background-color: #8599cd;
+		box-shadow: 0 3px 5px rgba(57, 63, 72, 0.2);
+	}
+	& .menu-content {
+		background-color: #8599cd;
+	}
+
 	& .page-num {
 		border-color: #1039a3;
 		color: #000;
@@ -16,9 +36,17 @@ body.light {
 		color: #fff;
 		background-color: #5b73b3;
 	}
+	& .button-component[kind="primary"] {
+		background-color: transparent;
+		color: #fff;
+	}
+	& .button-component[kind="primary"]:hover {
+		background-color: #30384d;
+		color: #fff;
+	}
 	& .button-component[kind="secondary"] {
 		background-color: #aeb9d5;
-		color: #000;
+		color: #fff;
 	}
 	& .button-component[kind="secondary"]:hover {
 		background-color: #30384d;
@@ -40,5 +68,22 @@ body.light {
 	}
 	& .result-search-wrapper {
 		background-color: #aeb9d5;
+	}
+	& .artist button {
+		border: none;
+		background-color: #000 !important;
+		color: #fff;
+	}
+	& .artist button:hover {
+		border: none;
+	}
+	& .artist .card {
+		background: #a3b3db !important;
+	}
+	& .creator {
+		background: #fff9;
+	}
+	& .image-upload {
+		background: transparent;
 	}
 }

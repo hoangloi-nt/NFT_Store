@@ -18,7 +18,7 @@ const ImageUpload = (props) => {
 	return (
 		<>
 			<label
-				className={`cursor-pointer flex items-center justify-center border border-[#353242] w-full min-h-[288px] rounded-sm ${className} relative overflow-hidden group lg:min-w-[288px] min-w-[250px] md:min-w-[240px] bg-[#04040c]`}
+				className={`image-upload cursor-pointer flex items-center justify-center border border-[#353242] w-full min-h-[288px] rounded-sm ${className} relative overflow-hidden group lg:min-w-[288px] min-w-[250px] md:min-w-[240px] bg-[#04040c]`}
 			>
 				<input type="file" name={name} className="hidden-input" {...rest} />
 				{!avatar && !image && !oldImage && (

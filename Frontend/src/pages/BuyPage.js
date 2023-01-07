@@ -17,7 +17,7 @@ const BuyPage = () => {
 		.modal-wrapper {
 			background-color: rgba(0, 0, 0, 0.9);
 			position: fixed;
-			z-index: 1;
+			z-index: 100;
 			top: 0;
 			left: 0;
 			right: 0;
@@ -76,6 +76,17 @@ const BuyPage = () => {
 			color: blue;
 			display: flex;
 			justify-content: center;
+		}
+		@media only screen and (max-width: 767px) {
+			.modal {
+				width: 377px;
+				height: 220px;
+				font-size: 14px;
+			}
+			.loader {
+				width: 80px;
+				height: 80px;
+			}
 		}
 	`;
 	const { t } = useTranslation();
