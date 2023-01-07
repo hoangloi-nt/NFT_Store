@@ -32,9 +32,6 @@
     "image": {
       "type": "string"
     },
-    "views": {
-      "type": "biginteger"
-    },
     "txHash": {
       "type": "text"
     },
